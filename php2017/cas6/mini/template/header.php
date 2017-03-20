@@ -59,9 +59,9 @@ $act = basename($_SERVER['REQUEST_URI'],".php");
                     <li <?php if($act==("services")){echo "class=\"active\"";} ?>>
                         <a href="services.php">Services</a>
                     </li>
-<!--                    <li>
-                        <a href="contact.html">Contact</a>
-                    </li>-->
+                   <li <?php if($act==("contact")){echo "class=\"active\"";} ?>>
+                        <a href="contact.php">Contact</a>
+                    </li>
 <!--                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
                         <ul class="dropdown-menu">
