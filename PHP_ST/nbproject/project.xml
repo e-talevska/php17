@@ -6,6 +6,7 @@
             <name>PHP_ST</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>html</word>
             <word>php</word>
         </spellchecker-wordlist>
     </configuration>
