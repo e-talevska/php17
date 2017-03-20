@@ -28,6 +28,9 @@
                 <li <?php if($active == "services"){echo "class=\"active\"";} ?>>
                     <a href="services.php">Services</a>
                 </li>
+                <li <?php if($active == "contact"){echo "class=\"active\"";} ?>>
+                    <a href="contact.php">Contact Us</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
