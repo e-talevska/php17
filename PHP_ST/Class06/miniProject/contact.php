@@ -12,6 +12,7 @@ if(isset($_POST['submit'])) {
     $fullName = trim($_POST['name']);
     $email = trim($_POST['email']);
     $phone = trim($_POST['phone']);
+    $message = trim($_POST['message']);
     //if fullName left empty show error
     if(($fullName == "")) {
         $errors['name'] = "Full name is required!";
@@ -86,8 +87,8 @@ include 'header.php';
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Message:</label>
-                            <input value= "<?php echo "$message"; ?>" type="message" class="form-control" id="message" name="message" required data-validation-required-message="Please enter your message.">
-                            <textarea  rows="10" cols="100" class="form-control" id="message" name="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"></textarea>
+                            <!--<input value= "<?php echo "$message"; ?>" type="message" class="form-control" id="message" name="message" required data-validation-required-message="Please enter your message.">-->
+                            <textarea  rows="10" cols="100" class="form-control" id="message" name="message" required data-validation-required-message="Please enter your message" maxlength="999" style="resize:none"><?php echo "$message"; ?></textarea>
                         <p class="help-block"><?php echo (isset($errors['message'])) ? $errors['message'] :''; ?></p>
                         </div>
                     </div>
