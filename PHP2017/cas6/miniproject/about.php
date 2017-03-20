@@ -1,4 +1,7 @@
-<?php include'templates/header.php'; ?> 
+<?php
+$menuItem = 'about';
+?>
+<?php include 'templates/header.php'; ?>
 
     <!-- Page Content -->
     <div class="container">
@@ -179,27 +182,4 @@
             </div>
         </div>
         <!-- /.row -->
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+<?php include 'templates/footer.php'; ?>
