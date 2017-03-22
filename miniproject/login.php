@@ -1,14 +1,18 @@
 <?php 
+session_start();
 if(isset($_COOKIE['username'])){
     header("location: profile.php");
     exit;
 }
     // form was submited // 
 $username = $pass = '';
+$rememberme = false;
 $errors = [];
+
     if($_SERVER['REQUEST_METHOD'] == "POST") {
         $username = $_POST['username'];
         $pass = $_POST['password'];
+        $rememberme = isset($_POST['rememberme']) ? true : false;
         
         if(strlen(trim($username)) == 0) {
             $errors['username'] = "Username is required";
@@ -68,6 +72,14 @@ $errors = [];
                             <label>Password:</label>
                             <input value="<?=$pass;?>" type="password" class="form-control" id="password" name="password" required data-validation-required-message="Please enter your phone number.">
                             <p class="help-block"><?php echo isset($errors['pass']) ? $errors['pass'] : $erros = ''; ?></p>
+                        </div>
+                    </div>
+                     <div class="checkbox">
+                        <div class="controls">
+                            <label>
+                            <input <?php if($rememberme){ echo "checked=''";} ?>value="" type="checkbox" id="rememberme" name="rememberme" required data-validation-required-message="Please enter your phone number.">
+                                Keep me logged in:
+                            </label>
                         </div>
                     </div>
                     <div id="success"></div>

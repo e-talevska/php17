@@ -8,4 +8,5 @@
 ?>
 <?php include 'include/header.php'; ?>
 <h1> Profile </h1>
+<a href="logout.php">Logout</a>
 <?php include 'include/footer.php'; ?>
