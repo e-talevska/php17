@@ -56,6 +56,9 @@ if (!isset($menuItem)){
                     <li <?php if ($menuItem == "Services"){echo "class='active'";} ?>>
                         <a href="services.php">Services</a>
                     </li>
+                    <li <?php if ($menuItem == "Contact"){echo "class='active'";} ?>>
+                        <a href="contact.php">Contact</a>
+                    </li>
                     
                     
                     
