@@ -1,0 +1,14 @@
+<?php include 'template/header.php'; ?>
+<?php $articles = [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget enim eros. Duis sit amet diam diam. Praesent bibendum felis eget porta mollis. Integer at nulla id massa faucibus finibus non vel ipsum. Nunc iaculis lorem a urna facilisis, ut bibendum ligula rutrum. Vivamus eu pharetra lectus. Suspendisse et vehicula ex. Phasellus ipsum lectus, ullamcorper sagittis congue sit amet, sodales in augue. Mauris sed velit at tortor luctus tincidunt. Curabitur consequat purus ac neque interdum, sit amet lobortis quam feugiat. In hac habitasse platea dictumst. Sed imperdiet, lacus sit amet efficitur vestibulum, urna lorem imperdiet leo, quis luctus massa odio ac ligula. Donec leo massa, dapibus nec leo placerat, facilisis efficitur massa. Vestibulum quis blandit nulla. Proin vel elit sed orci dignissim semper.",
+    "Vivamus bibendum nulla in quam lacinia volutpat. Curabitur mauris odio, ornare non erat semper, tempor ultricies nisi. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam luctus viverra lectus, ac viverra turpis vehicula vel. Sed posuere turpis magna, et ornare elit vestibulum et. Etiam accumsan nunc dolor, eget dignissim nulla convallis interdum. Aliquam erat volutpat. Donec facilisis libero at maximus scelerisque. Suspendisse fermentum justo non ante congue, quis rhoncus leo eleifend. Integer tincidunt nunc non velit ornare, a vestibulum magna sollicitudin. Suspendisse semper ex dui, vitae semper nisl bibendum in. Nam in massa maximus, pharetra sapien vitae, vestibulum eros. Suspendisse vel pretium arcu. Suspendisse vitae diam dictum magna feugiat condimentum. Mauris condimentum faucibus ultricies.",
+    "Mauris viverra porttitor ornare. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras quis tincidunt massa. Sed ut lacus interdum, sagittis diam eget, luctus eros. Phasellus viverra, lectus facilisis luctus tristique, neque turpis dignissim eros, vel rutrum diam enim eget lacus. Curabitur pellentesque elit tellus, sed auctor tortor vehicula eu. Sed suscipit feugiat viverra. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Quisque malesuada dui nunc, eget sodales eros dignissim sed. Maecenas malesuada congue semper. Duis porta, risus vel tincidunt convallis, nunc ipsum auctor purus, a pulvinar turpis lorem sed nulla. Fusce orci felis, viverra ut elit a, ullamcorper iaculis urna. Curabitur quis eleifend lorem. Ut sit amet venenatis elit, ac pulvinar sem. Etiam vulputate velit eu odio pharetra hendrerit. Phasellus eu tempor ante." 
+];?>
+<?php
+
+    if (isset($_GET['article']) && isset($articles[$_GET['article']])) {
+        echo "<p>".$articles[$_GET['article']]."</p>";
+    }
+
+?>
+<?php include 'template/footer.php'; ?>
