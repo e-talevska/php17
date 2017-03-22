@@ -27,10 +27,18 @@
         if(empty($email)){
             $errors['email'] = "E-mail field is required";
         }
+        elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+            $errors['email'] = "E-mail is not valid";
+        }
         
         $message = trim($_POST['message']);
         if(empty($message)){
             $errors['message'] = "Your message is required";
+        }
+        
+        if(empty($errors)){
+            include("mail.php");
+            $result = sendMail($email, $name, $message);
         }
     }
     
@@ -41,7 +49,15 @@
 
     <!-- Page Content -->
     <div class="container">
-
+        
+        <?php
+            if(isset($result)){
+                echo "<div class=\"alert alert-success\">
+                      $result
+                    </div>";
+            }
+        ?>
+        
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">

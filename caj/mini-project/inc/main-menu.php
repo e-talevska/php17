@@ -22,6 +22,9 @@
                 <li <?php if($active == "index"){echo "class=\"active\"";} ?>>
                     <a href="index.php">Home</a>
                 </li>
+                <li <?php if($active == "login"){echo "class=\"active\"";} ?>>
+                    <a href="login.php">Login</a>
+                </li>
                 <li <?php if($active == "about"){echo "class=\"active\"";} ?>>
                     <a href="about.php">About</a>
                 </li>
@@ -31,6 +34,11 @@
                 <li <?php if($active == "contact"){echo "class=\"active\"";} ?>>
                     <a href="contact.php">Contact Us</a>
                 </li>
+                <?php if(isset($_COOKIE['username'])) { ?>
+                <li>
+                    <a href="logout.php">Logout</a>
+                </li>
+                <?php } ?>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
