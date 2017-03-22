@@ -138,9 +138,9 @@ $menuItem = 'login';
                 <form name="sentMessage" id="contactForm" novalidate>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Username:</label>
-                            <input type="text" value="<?= $username; ?>" class="form-control" id="Username" name="username" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"><?php echo (isset($errors['username'])) ? $errors['username'] :' '; ?></p>
+                            <label>Password:</label>
+                            <input type="text" value="<?= $pass; ?>" class="form-control" id="pass" name="pass" required data-validation-required-message="Please enter your name.">
+                            <p class="help-block"><?php echo (isset($errors['pass'])) ? $errors['pass'] :' '; ?></p>
                            <?php
                             // if(isset($errors['name'])){
                                //  echo $errors['name'];
