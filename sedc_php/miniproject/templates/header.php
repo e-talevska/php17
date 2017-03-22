@@ -60,7 +60,7 @@ if(!isset($menuItem)) {
                         <a href="services.php">Services</a>
                     </li>
                     <li <?php if($menuItem == 'contact') { echo "class='active'";} ?>>
-                        <a href="contact.php">Services</a>
+                        <a href="contact.php">Contact</a>
                     </li>
                 </ul>
             </div>

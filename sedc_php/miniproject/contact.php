@@ -23,8 +23,16 @@ if(isset($_POST['submit'])) {
         $errors['phone'] = "Phone is required!";
     }
     
-     if(trim($email) == "") {
+    if(trim($email) == "") {
         $errors['email'] = "Email is required!";
+    } else if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Email is invalid!";
+    }
+    
+    //no errors found
+    if(empty($errors)) {
+        include 'mail.php';
+        $result = sendMail($email, $fullName, $message);
     }
 }
 
@@ -37,6 +45,12 @@ $menuItem = 'contact';
     <!-- Page Content -->
     <div class="container">
 
+        <?php
+        if(isset($result)) {
+            echo "<div class='alert alert-info'>$result</div>";
+        }
+        ?>
+        
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
