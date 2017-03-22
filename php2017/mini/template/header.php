@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <?php
 
 $act = basename($_SERVER['REQUEST_URI'],".php"); 
 //echo $_SERVER['SERVER_NAME'];
 //echo $act;
 ?>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -34,7 +34,6 @@ $act = basename($_SERVER['REQUEST_URI'],".php");
     <![endif]-->
 
 </head>
-
 <body>
 
     <!-- Navigation -->
@@ -61,6 +60,12 @@ $act = basename($_SERVER['REQUEST_URI'],".php");
                     </li>
                    <li <?php if($act==("contact")){echo "class=\"active\"";} ?>>
                         <a href="contact.php">Contact</a>
+                    </li>
+                    <li <?php if($act==("login")){echo "class=\"active\"";} ?>>
+                        <a href="login.php">LogIn</a>
+                    </li>
+                    <li>
+                        <a href="logout.php">logout</a>
                     </li>
 <!--                    <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>

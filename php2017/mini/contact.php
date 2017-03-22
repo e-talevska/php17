@@ -19,9 +19,16 @@ if(isset($_POST['sent'])){
     }
      if($email==""){
        $errors['email']= "email is required!";
+    }elseif (!filter_var($email,FILTER_VALIDATE_EMAIL)) {
+        $errors['email']='Email is invalid';
     }
      if($message==""){
        $errors['message']= "message is required!";
+    }
+    //no errors found 
+    if (empty($errors)) {
+        include 'mail.php';
+        $result = sendMail($email, $fullName, $message);
     }
 }
 ?>
@@ -30,7 +37,13 @@ if(isset($_POST['sent'])){
     <!-- Page Content -->
  
     <div class="container">     
-
+        
+        <?php 
+        if (isset($result)) {
+            echo "<div class='alert alert-info'>$result</div>";
+        }
+        ?>
+        
         <!-- Contact Form -->
         <!-- In order to set the email address and subject line for the contact form go to the bin/contact_me.php file. -->
         <div class="row">
