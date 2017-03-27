@@ -1,5 +1,11 @@
 <?php
-if(isset($_COOKIE['username'])) {
+session_start();
+
+if(!isset($_SESSION['username']) && isset($_COOKIE['username'])) { 
+    $_SESSION['username'] = $_COOKIE['username'];
+}
+
+if(isset($_SESSION['username'])) {
     header("Location: profile.php");
     exit;
 }
@@ -19,9 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (empty($errors)) {
         include 'db.php';
         foreach ($users as $u => $p) {
-        if ($u == $username && $p == $pass){  
+        if ($u == $username && $p == $pass){ 
+            
+            $_SESSION['username'] = $username;
+            if($rememberme) {
+          
+            
             //set cookie valid one hour
             setcookie("username", $username, time() + 3600);
+        }
             //redirect the user to profile page
             header("Location: profile.php");
             exit;

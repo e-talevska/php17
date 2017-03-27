@@ -6,6 +6,7 @@
             <name>php2017</name>
         </data>
         <spellchecker-wordlist xmlns="http://www.netbeans.org/ns/spellchecker-wordlist/1">
+            <word>htm</word>
             <word>html</word>
             <word>php</word>
         </spellchecker-wordlist>
