@@ -1,7 +1,10 @@
 <?php 
     session_start();
+    if(!isset($_SESSION['username']) && isset($_COOKIE['username'])){
+        $_SESSION['username'] = $_COOKIE['username'];
+    }
     $active = "login"; 
-    if(isset($_COOKIE['username'])){
+    if(isset($_SESSION['username'])){
         header("location: profile.php");
         exit;
     }
@@ -30,9 +33,12 @@
         include("users.php");
         foreach($users as $user => $pass){
             if($user == $username && $pass == $password){
-                // set cookie for one hour
-                setcookie("username", $username, time() + 3600);
                 
+                if($rememberme){
+                    // set cookie for one hour
+                    setcookie("username", $username, time() + 3600);
+                }
+                $_SESSION['username'] = $username;
                 // redirect user to user profile
                 header("location: profile.php");
                 exit;

@@ -34,7 +34,7 @@
                 <li <?php if($active == "contact"){echo "class=\"active\"";} ?>>
                     <a href="contact.php">Contact Us</a>
                 </li>
-                <?php if(isset($_COOKIE['username'])) { ?>
+                <?php if(isset($_COOKIE['username']) || isset($_SESSION['username'])) { ?>
                 <li>
                     <a href="logout.php">Logout</a>
                 </li>

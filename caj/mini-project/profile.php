@@ -1,13 +1,14 @@
-<?php $active = "profile"; ?>
+<?php 
+    session_start();
+    $active = "profile"; 
+?>
 <?php 
     // If user is logged in
-    if(!isset($_COOKIE['username'])){
+    if(!isset($_SESSION['username'])){
         header("location: login.php");
         exit;
     }
-    include("inc/header.php"); 
-    
-    
+    include("inc/header.php");
 ?>
 <body>
 
