@@ -1,6 +1,7 @@
 <?php
+session_start();
     //if the user is loged in 
-    if(!isset($_COOKIE['username'])){
+    if(!isset($_SESSION['username'])){
         header('Location: login.php');
         exit;
     }
