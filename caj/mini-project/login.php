@@ -8,10 +8,10 @@
 ?>
 <?php 
     include("inc/header.php"); 
-        $username = "";
-        $password = "";
-        $errors = array();
-        $rememberme = false;
+    $username = "";
+    $password = "";
+    $errors = array();
+    $rememberme = false;
         
     if($_SERVER['REQUEST_METHOD'] == "POST"){
         $username = $_POST['username'];

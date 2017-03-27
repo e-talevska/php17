@@ -28,4 +28,3 @@
             return 'Message has been sent';
         }
     }
-    
