@@ -82,7 +82,7 @@
 
 
  		foreach ($people as $i => $person) {
- 			echo "People "..($i+1).": ";
+ 			echo "People ".($i+1).": ";
 
  		foreach ($people as $key => $value){
 

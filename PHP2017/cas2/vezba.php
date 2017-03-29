@@ -35,7 +35,7 @@
 
 	 	</li>
 
-	<li>School Schedule</li> #
+	<li>School Schedule</li> 
 
 
 
@@ -52,14 +52,14 @@
 			echo "brojce";
 			break;
 		case 'admin';
-		case 'profesor'
-				echo "  <ul>	
+		case 'profesor';
+				echo   "<ul>	
 				<li>Students</li>
 				<ul>
-					<li>Grades</li>
+                                    <li>Grades</li>
 				</ul>
-				<li>School Grades</li>
-			</ul> ";
+                                    <li>School Grades</li>
+                                </ul> ";
 			break;
 
 
@@ -70,12 +70,6 @@
 
 
 	 ?>
-
-
-
-
-
-
 
 </body>
 </html>

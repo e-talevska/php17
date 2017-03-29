@@ -3,9 +3,13 @@ session_start()?>
 <?php
 
 
+if(!isset($_SESSION['username']) &&isset($_SESSION['username']))
+{
+    $_SESSION['username']= $_COOKIE['username'];
+}
 
 
-if(isset($_COOKIE['username'])){
+if(isset($_SESSION['username'])){
     header("Location: profile.php");
     exit;
 }
@@ -30,8 +34,10 @@ $rememberme= false;
         include 'db.php';
         foreach ($users as $u =>$p){
             if($u==$username && $p==$pass){
-                
-                setcookie("username", $username, time()+3600);
+                $_SESSION['username']= $username;
+                if($rememberme){
+                    setcookie("username", $username, time()+3600);
+                    }
                 //redirect the user to profile page
                 header("Location: profile.php");
                 exit;
@@ -158,7 +164,12 @@ $menuItem = 'login';
                             Keep me logged in:  <input <?php if($rememberme){echo "checked=''";} ?> type="checkbox" value=""  class="form-control" id="rememberme" name="rememberme" >
                           
                             </label>
+                           
                         </div>
+                        <div id="success"></div>
+                    <!-- For success/fail messages -->
+                    <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                 </div>
                     </div>
                     
                     
