@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 $errors = [
     UPLOAD_ERR_INI_SIZE => 'larger than max upload size',
     UPLOAD_ERR_FORM_SIZE => 'larger than max post size',
@@ -11,8 +11,9 @@ $errors = [
 if(isset($_POST['upload'])){
     if(isset($_FILES['uploaded_file']) && $_FILES['uploaded_file']['error'] == 0){
         move_uploaded_file($_FILES['uploaded_file']['tmp_name'], 'uploads/'.$_FILES['uploaded_file']['name']);
-        echo "file uploaded.";
-    }  else {
-        echo $errors[$_FILES['uploaded_file']['error']];
+        $_SESSION['upload_succsess'] = 'file uploaded succsessfully';
+    }  elseif($_FILES['uploaded_file']['error'] != 0) {
+        $_SESSION['upload_error'] = $errors[$_FILES['uploaded_file']['error']];
     }
+    header("Location: upload.php");
 }
