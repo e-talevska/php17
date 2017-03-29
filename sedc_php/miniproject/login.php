@@ -1,6 +1,10 @@
-<?php session_start(); ?>
-<?php 
-    if(isset($_COOKIE['username'])){
+<?php session_start(); 
+
+    if(!isset($_SESSION['$username']) && isset($_COOKIE['$username'])){
+            $_SESSION['$username'] = $_COOKIE['$username'];//go kopira od cookie vo session
+            }
+
+    if(isset($_SESSION['username'])){
         
         header("Location:profile.php");
         exit;
@@ -12,7 +16,7 @@
     if($_SERVER['REQUEST_METHOD']=="POST"){
         $username = $_POST['username'];
         $pass = $_POST['password'];
-        $rememberme = isset($_POST['rememberme']) ? true : false;
+        $rememberme = isset($_POST['rememberme']) ? true : false;//checkbox
 
 if (strlen (trim($username)) ==0){
     
@@ -30,7 +34,11 @@ if (empty($errors)){
     foreach ($users as $u => $p){
         if ($u==$username && $p == $pass){
             
-            setcookie("username", $username, time()+3600 );
+            
+            $_SESSION['username'] = $username;
+            if($rememberme){
+                setcookie("username", $username, time()+3600) ;
+             }
             header("Location:profile.php");
             exit;
             
