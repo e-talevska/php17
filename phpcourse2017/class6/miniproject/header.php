@@ -58,6 +58,9 @@ if (isset($menuItem)){
                     <li>
                         <a href="services.php">Services</a>
                     </li>
+                    <li>
+                        <a href="contact.php">Services</a>
+                    </li>
                     
           
                         </ul>

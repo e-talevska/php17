@@ -1,9 +1,8 @@
-<?php
-if(!isset($menuItem)) {
-    $menuItem = '';
+<?php 
+if (!isset($menuItem)){
+    $menuItem = "";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,10 +34,8 @@ if(!isset($menuItem)) {
 
 </head>
 
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<body>  
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -53,16 +50,18 @@ if(!isset($menuItem)) {
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <li <?php if($menuItem == 'about') { echo "class='active'";} ?>>
+                    <li <?php if ($menuItem == "About"){echo "class='active'";} ?>>
                         <a href="about.php">About</a>
                     </li>
-                    <li <?php if($menuItem == 'services') { echo "class='active'";} ?>>
+                    <li <?php if ($menuItem == "Services"){echo "class='active'";} ?>>
                         <a href="services.php">Services</a>
                     </li>
-                    <li <?php if($menuItem == 'contact') { echo "class='active'";} ?>>
+                    <li <?php if ($menuItem == "Contact"){echo "class='active'";} ?>>
                         <a href="contact.php">Contact</a>
                     </li>
-
+                    
+                    
+                    
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
