@@ -13,11 +13,11 @@ class Student {
         $this->subjects = $subjects;
     }
     function __destruct() {
-        echo "Destructor called <br>";
-    }
+    //  echo "Destructor called <br>";
+   }
             
     function intro(){
-        echo "I am {$this->firstName}, {$this->lastName} <br>";
+        echo "I am {$this->firstName}, {$this->lastName} and my subjects are:" . implode(", ", $this->subjects). "<br>";
         
     }
 }
@@ -33,7 +33,7 @@ $student2 = new Student("John", "Doe", ['math', 'physics', "english"]);
 //$student2->lastName = "Doe";
 //$student2->subjects = ['math', 'physics', "english"];
 $student2->intro();
-var_dump($student1, $student2);
+// var_dump($student1, $student2);
 
 // destroy objects
 unset($student1, $student2);
