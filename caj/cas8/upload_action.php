@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    $error_message = array();
+    
     $errors = array(
         UPLOAD_ERR_INI_SIZE => "File is larger than maximum upload size.",
         UPLOAD_ERR_FORM_SIZE => "File is larger than max post size.",
@@ -10,7 +13,13 @@
     );
     if(isset($_POST['submit'])){
         if(isset($_FILES['avatar']) && $_FILES['avatar']['error'] == 0){
-            move_uploaded_file($_FILES['avatar']['tmp_name'], "avatars/".$_FILES['avatar']['name']);
+            var_dump($_FILES);
+            //move_uploaded_file($_FILES['avatar']['tmp_name'], "avatars/".$_FILES['avatar']['name']);
+            $_SESSION['upload_success'] = "File uploaded successfully";
         }
+        elseif($_FILES['avatar']['error'] != 0){
+            $_SESSION['upload_error'] = $errors[$_FILES['avatar']['error']];
+        }
+        header("location: upload.php");
     }
 ?>
