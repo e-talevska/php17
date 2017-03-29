@@ -1,0 +1,41 @@
+package consoleList;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+public class TestConsoleToList {
+
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+		String element;
+
+		LinkedList<String> lista = new LinkedList<>();
+
+		System.out.println("Vnesi go pviot element: ");
+		element = input.nextLine();
+		lista.add(element);
+
+		System.out.println("Vnesi go vtoriot element: ");
+		element = input.nextLine();
+		lista.add(element);
+
+		System.out.println("Vnesi go tretiot element: ");
+		element = input.nextLine();
+		lista.add(element);
+
+		// List<String> l1;
+		// LinkedList<String> l1;
+		// l1.ge
+		System.out.println("Vnesenite elementi vo lista se :" + lista);
+
+		System.out.println("Prviot element e: " + lista.get(0));
+		System.out.println("Vtoriot element e: " + lista.get(1));
+		System.out.println("Tretiot element e: " + lista.get(2));
+		
+		lista.remove(0);
+		System.out.println(lista);
+
+	}
+
+}
