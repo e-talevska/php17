@@ -4,8 +4,8 @@ class Student {
    var  $firstName;
    var  $lastName;
    var  $subjects;
-   var  $dob;
-   
+   private $dob;
+   private $email;
    
    function __construct($firstName, $lastName, $subjects) {
        echo "Constructor called  <br>" ;
@@ -23,13 +23,31 @@ class Student {
              . "<br>";
        
    }
+   function getEmail() {
+       return $this->email;
+       
+   }
+   function setEmail($email) {
+       //validacija
+      
+       if(preg_match('/^[a-zA-Z0-9][a-zA-Z0-9\._]*@[a-zA-Z]+\.[a-z]{2,3}(\.[a-z{2,3}])?$/', $email)) {
+            $this->email = $email;
+       }
+   }
 }
 
 $student1 = new Student("Nikola", "Loshkovski", ['PHP' , 'MySQL' , 'JavaScript']);
+$student1->lastName = "Lock";
+//not
+//$student1->dob = "01.01.2000";
+//if email adress  is valid
+$student1->setEmail('e.talevska@hotmail.com');
+        echo $student1->getEmail();
 //$student1->firstName = "Nikola";
 //$student1->lastNamer = "Loshkovski";
 //$student1->subjects = ['PHP' , 'MySQL' , 'JavaScript'];
 $student1->intro();
+
 
 $student2 = new Student("John", "Lock", ['Java' , 'C++' , 'C#']);
 //$student2->firstName = "John";
