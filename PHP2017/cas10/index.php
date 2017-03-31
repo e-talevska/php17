@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Add faculty</title>
+    </head>
+    <body>
+        <form action="insert.php" method="POST">
+            <div>
+                <label>Faculty name</label>
+                <input type="text", name="name">
+            </div>
+            <div>
+                <button name="submit", name="submit">Add</button>
+            </div>
+        </form>
+
+    </body>
+</html>
