@@ -44,14 +44,17 @@
 
     $harryPotter = new FictionBook("Harry Potter", "Mitko J.", 50, 121);
     $love = new RomanceBook("Love is in the Air", "Mitko J", 99, 122);
+    
     echo $harryPotter->description();
     echo $harryPotter->getPrice();
     echo $love->getPrice();
+    echo "<pre>";
     var_dump($harryPotter);
     var_dump($love);
 
     $generalBook = new Book("PHP & MySQL", "SEDC", 11, 22, "Development");
     var_dump($generalBook);
+    echo "</pre>";
     echo Book::$publisher;
     
 ?>
