@@ -1,6 +1,7 @@
 <?php
 namespace Fakulteti;
 require 'file.php';
+use \FileManipulation\File;
 
 class Fakultet {
     public $name;
@@ -14,6 +15,12 @@ class Fakultet {
     }
     
     public function save() {
-        
+        $file = new File('db/db.csv','a+');
+        $file->write([$this->id,  $this->name]);
+    }
+    
+    public static function readAll() {
+        $file = new File('db/db.csv','r');
+        return $file->read();
     }
 }

@@ -6,6 +6,7 @@ class File {
     private $mode;
     private $path;
     public static $writeModes = ["r+", "w", "w+", "a", "a+"];
+    public static $readModes = ["r", "r+", "w+", "a+"];
     function __construct($path, $mode) {
         $this->mode = $mode;
         $this->path = $path;
@@ -21,6 +22,22 @@ class File {
         }
         
         return false;
+    }
+    
+    function read() {
+        //check if the file is opened for reading
+        if(in_array($this->mode, self::$readModes)) {
+            rewind($this->handle);
+            $result = [];
+            while(!feof($this->handle)){
+                $row = fgetcsv($this->handle);
+                if($row && $row[0] != null) {
+                    $result[] = $row;
+                }
+            }
+            
+            return $result;
+        }
     }
             
     function __destruct() {
