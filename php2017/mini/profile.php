@@ -1,5 +1,5 @@
 <?php
-session_start();
+session_start(); var_dump($_COOKIE,$_SESSION);
     //if the user is loged in 
     if(!isset($_SESSION['username'])){
         header('Location: login.php');

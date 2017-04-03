@@ -1,15 +1,15 @@
 <html>
     <head>
-        <title>fakulteti</title>
+        <title>Add faculty</title> 
     </head>
     <body>
-        <form action="insert.php"method="POST">
+        <form action="insert.php" method="POST">
             <div>
-                <label for="name">ime na fakultet</label>
-                <input type="text" name="name" id="name"> 
+                <label>Faculty name:</label>
+                <input type="text" name="name">
             </div>
             <div>
-                <button type="submit" name="submit">add</button>
+                <button type="submit" name="submit">Add</button>
             </div>
         </form>
     </body>

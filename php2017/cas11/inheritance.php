@@ -1,51 +1,50 @@
 <?php
-class Book{
+abstract class Book {
     public $title;
     public $author;
     public $price;
     public $isbn;
-    public $genre;
+    public $gerne;
     
-    public static $publishHouse = "matica";
+    public static $publishHouse = "Matica";
             
-    function __construct($title,$author,$price,$isbn,$genre) {
+    function __construct($title, $author, $price, $isbn, $gerne) {
         $this->title = $title;
         $this->price = $price;
         $this->author = $author;
-        $this->isbn = $isbn;                
+        $this->isbn = $isbn;
+        $this->gerne = $gerne;
     }
             
-    function description(){
+    function description() {
         return "Title $this->title by $this->author";
     }
-    function getPrice(){
-        return $this->price;
-    }
+    
+    abstract function getPrice();
 }
-class FictionBook extends Book{
+class FictionBook extends Book {
     function __construct($title, $author, $price, $isbn) {
         parent::__construct($title, $author, $price, $isbn, "fiction");
     }
+    
     function getPrice() {
         return $this->price + 20;
     }
 }
-
-class RomanceBook extends Book{
+class RomanceBook extends Book {
     function __construct($title, $author, $price, $isbn) {
         parent::__construct($title, $author, $price, $isbn, "romance");
     }
+    
     function getPrice() {
-        //-50 procenti
+        //50% discount
         return $this->price - $this->price*0.5;
     }
 }
-
-$harryPoter = new FictionBook("harryPoter", "toni", 200, '1234543');
-
-echo $harryPoter->description();
-echo $harryPoter->getPrice()."<br>";
-
-$rBook = new RomanceBook("50 shades of grey", "nekoj", 150, "23452345");
+//$generalBook = Book("PHP & MySQL", "SEDC0", 1000, "54545", "development");
+$harryPotter = new FictionBook("Harry Potter", "Emilija", 200, "12121");
+echo $harryPotter->description();
+echo $harryPotter->getPrice();
+echo FictionBook::$publishHouse;
+$rBook = new RomanceBook("50 shades of gray", "Nekoj", 150, "323232");
 echo $rBook->getPrice();
-    
