@@ -4,7 +4,7 @@ class DBAccess {
     const DB_USER = "root";
     const DB_PASS = "";
     const DB_NAME = "onlineshop";
-    private $connection;
+    protected $connection;
 
     function __construct() {
         $this->connection = mysqli_connect(DBAccess::HOST, DBAccess::DB_USER, DBAccess::DB_PASS, DBAccess::DB_NAME);
@@ -13,35 +13,35 @@ class DBAccess {
             throw new Exception("Cannot connect with MySQL " . mysqli_connect_error());
         }
     }
-    
-    function readProductLines() {
-        $query = "SELECT * FROM productlines";
-        $result = mysqli_query($this->connection, $query);
-        if(!$result) {
-            echo "Invalid query " .mysqli_error($this->connection);
+    /**
+     * $columns = ['title', 'id', 'name'];
+     */
+    function read($table, $columns = [], $where = '') {
+        //if $columns is empty array, select everything
+        //otherwise select the specified columns
+        if(empty($columns)) {
+            $select = "*";
         } else {
-            $productLines = [];
-            while($row = mysqli_fetch_assoc($result)) {
-                $productLines[] = $row;
-            }
-            mysqli_free_result($result);
-            return $productLines;
+            $select = implode(",", $columns);
         }
-    }
-    
-    function readProductsByLineName($productLine) {
-        $productLine = mysqli_real_escape_string($this->connection, $productLine);
-        $query = "SELECT * FROM products WHERE productLine = '$productLine'";
+        $query = "SELECT $select ";
+        $query .= "FROM $table ";
+        //if where is set, add the condition to the query
+        if($where != '') {
+            $query .= "WHERE $where";
+        }
+
         $result = mysqli_query($this->connection, $query);
         if(!$result) {
-            echo "Invalid query " .mysqli_error($this->connection);
+            echo "Invalid query " . mysqli_error($this->connection);
         } else {
-            $products = [];
+            $resultArray = [];
             while($row = mysqli_fetch_assoc($result)) {
-                $products[] = $row;
+                $resultArray[] = $row;
             }
+            
             mysqli_free_result($result);
-            return $products;
+            return $resultArray;
         }
     }
     
