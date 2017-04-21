@@ -5,7 +5,7 @@ class DBAccess {
     const DB_USER = "root";
     const DB_PASS = "";
     const DB_NAME = "onlineshop";
-    private $connection;
+    protected $connection;
     function __construct() {
         $this->connection = mysqli_connect(DBAccess::HOST, DBAccess::DB_USER, DBAccess::DB_PASS, DBAccess::DB_NAME);
         //if error occured
@@ -13,7 +13,38 @@ class DBAccess {
             throw new Exception("Cannot connect with MySQL" . mysqli_connect_error());
         }
     }
-    function readProductLines(){
+    function read($table, $columns = [], $where = ''){
+        //check if the column is empty
+        if(empty($columns)) {
+            $select = '*';
+        } else {
+            $select = implode(',', $columns);
+        }
+        $query = "SELECT $select ";
+        $query .="FROM $table ";
+        //if where is set, add the condition to the query
+        if($where != '') {
+            $query.="WHERE $where";
+        }
+
+        $result = mysqli_query($this->connection, $query);
+        if(!$result){
+            echo "Invalid query ".mysqli_errno($this->connection);
+        } else {
+            $resultArray = [];
+            while($row = mysqli_fetch_assoc($result)) {
+                $resultArray[] = $row;
+            }
+            mysqli_free_result($result);
+            return $resultArray;
+        }
+    } 
+    
+    
+    
+    
+    
+            function readProductLines(){
         $query = "SELECT * FROM productlines";
         $result = mysqli_query($this->connection, $query);
         if(!$result){
@@ -27,21 +58,7 @@ class DBAccess {
             return $productLines;
         }
     }
-    function readProductByLineName($productLine){
-        $productLine= mysqli_real_escape_string($this->connection, $productLine);
-        $query = "SELECT * FROM products WHERE productLine = '$productLine' ";
-        $result = mysqli_query($this->connection, $query);
-        if(!$result){
-            echo "Invalid query " . mysqli_error($this->connection);
-        } else {
-            $productLines = [];
-            while ($row = mysqli_fetch_assoc($result)){
-                $productLines[]= $row;
-            }
-            mysqli_free_result($result);
-            return $productLines;
-        }
-    }
+
             function __destruct() {
         mysqli_close($this->connection);
     }
