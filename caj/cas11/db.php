@@ -5,7 +5,7 @@
         const DB_USER = "root";
         const DB_PASS = "";
         const DB_NAME = "onlineshop";
-        private $connection;
+        protected $connection;
         
         function __construct(){
             $this->connection = mysqli_connect(DBAccess::HOST, DBAccess::DB_USER, DBAccess::DB_PASS, DBAccess::DB_NAME);
@@ -14,36 +14,30 @@
             } 
         }
         
-        function readProductLines(){
-            $query = "SELECT * FROM productlines";
+        function read($table, $columns = [], $where = ""){
+            if(empty($columns)){ // Select *
+                $select = "*";
+            }
+            else{
+                $select = implode(",", $columns);
+            }
+            $query = "SELECT $select ";
+            $query .= "FROM $table ";
+            if($where != ""){
+                $query .= "WHERE $where";
+            }
+            
             $result = mysqli_query($this->connection, $query);
             if(!$result){
                 echo "Invalid query " . mysqli_error($this->connection);
             }
             else{
-                $productLines = [];
+                $resultArray = [];
                 while($row = mysqli_fetch_assoc($result)){
-                    $productLines[] = $row;
+                    $resultArray[] = $row;
                 }
                 mysqli_free_result($result);
-                return $productLines;
-            }
-        }
-        
-        function readProductByLineName($productLine){
-            $productLine = mysqli_real_escape_string($this->connection, $productLine);
-            $query = "SELECT * FROM products WHERE productLine = '$productLine'";
-            $result = mysqli_query($this->connection, $query);
-            if(!$result){
-                echo "Invalid query " . mysqli_error($this->connection);
-            }
-            else{
-                $products = [];
-                while($row = mysqli_fetch_assoc($result)){
-                    $products[] = $row;
-                }
-                mysqli_free_result($result);
-                return $products;
+                return $resultArray;
             }
         }
         
