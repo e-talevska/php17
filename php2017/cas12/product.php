@@ -1,52 +1,34 @@
-<?php
-
-require 'conectingDB.php';
+<?php 
+if(!isset($_GET['id'])){
+    header("Location:index.php"); exit();
+}
+include 'templates/header.php';
+require 'models/product.php';
 
 try{
-    $db = new DBAccess();
-    $productLines = $db->readProductLines();
-    $products = $db->readProductsByLineName($_GET['id']);
+    $productModel = new Product();
+    $products = $productModel->fetchByName($_GET['id']);
             
 } catch (Exception $e){
     echo $e->getMessage();
+    $products = [];
 }
+//option 2
+//if(isset($db)){
+//    $products = $db->readProductLines($_GET['id']);
+//}  else {
+//    $products = [];
+//}
+//    
+foreach ($products as $product){ ?>            
+<div class="list-group">
+    <a href="editProduct.php?product=<?= $product['productCode'] ?>" class="list-group-item active" >
 
+        <h5 class="list-group-item-heading"><?php echo $product['productName']; ?></h5>                       
 
-?>
+        <p class="list-group-item-text"><?php echo $product['productDescription']; }?></p>
 
-<html>
-    <head>
-        <title>title</title>
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        
-        <div class="container">            
-            <ul class="nav nav-tabs">
-                <?php foreach ($productLines as $productLine){ 
-                    echo "<li><a href='product.php?id={$productLine['productLine']}'>{$productLine['productLine']}</a></li>";
-                }?>
-            </ul>
+    </a>
+</div>
             
-            <?php foreach ($products as $product){ ?>            
-            <div class="list-group">
-                <a href="#" class="list-group-item active" >
-                  
-                    <h5 class="list-group-item-heading"><?php echo $product['productName']; ?></h5>                       
-                  
-                    <p class="list-group-item-text"><?php echo $product['productDescription']; }?></p>
-                  
-                </a>
-            </div>
-            
-        </div>
-        
-    </body>
-</html>
+<?php include 'templates/footer.php'; ?>
