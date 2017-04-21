@@ -4,7 +4,7 @@ class DBAccess {
     const DB_USER = "root";
     const DB_PASS = "";
     const DB_NAME = "onlineshop";
-    private $connection;
+    protected $connection;
             
     function __construct() {
         $this->connection = mysqli_connect(DBAccess::HOST, DBAccess::DB_USER, DBAccess::DB_PASS, DBAccess::DB_NAME);
@@ -14,11 +14,41 @@ class DBAccess {
         }
     }
     
+    //$columns = ['title', 'id', 'name'];
+    
+    function read($table, $columns=[], $where = '') {
+      //if $columns is empty array, select everything, otherwise select the specified columns;
+        if(empty($columns)) {
+            $select = "*";
+        } else {
+            $select = implode(",", $columns);
+        }
+        $query = "SELECT $select ";
+        $query .="FROM $table ";
+        // if where is set than add the condition to the query
+        if($where !='') {
+            $query .="WHERE $where";
+        }
+
+        $result = mysqli_query($this->connection, $query);
+        if (!$result) {
+            echo "Invalid query" . mysqli_errno($this->connection);
+            
+        } else {
+        $resultArray = [];
+        While($row = mysqli_fetch_assoc($result)) {
+            $resultArray[] = $row;
+        }
+        mysqli_free_result($result);
+        return $resultArray;
+        }
+    }
+            
     function readProductLines() {
         $query = "SELECT * FROM productlines";
         $result = mysqli_query($this->connection, $query);
         if(!$result) {
-            echo "Invalid query " . mysqli_errno($this->connection);
+            echo "Invalid query " . mysqli_error($this->connection);
         } else {
             $productLines = [];
             while($row = mysqli_fetch_assoc($result)){
@@ -29,21 +59,7 @@ class DBAccess {
         }
     }
     
-    function readProductByLineName ($productLine) {
-        $productLine = mysqli_real_escape_string($this->connection, $productLine);
-        $query = "SELECT * FROM products WHERE productLine = '$productLine'";
-        $result = mysqli_query($this->connection, $query);
-        if(!$result) {
-            echo "Invalid query " . mysqli_errno($this->connection);
-        } else {
-            $products = [];
-            while($row = mysqli_fetch_assoc($result)){
-              $products[] = $row;  
-            }
-            mysqli_free_result($result);
-            return $products;
-        }
-    }
+  
             
             function __destruct() {
         mysqli_close($this->connection);
