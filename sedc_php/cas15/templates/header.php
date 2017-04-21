@@ -1,16 +1,12 @@
 <?php
-require 'db.php';
-//$db = new DBAccess();//nova instanca od class DBAccess //se povikuva construct i da se konektira / vleguva vo if ako ima greska
+require 'models/productLine.php';
 try{
-    $db = new DBAccess();
-    $productLines = $db->readProductLines();
+    $productLineModel = new ProductLine();
+    $productLines = $productLineModel->fetchAll();
 } catch (Exception $e){
       echo $e->getMessage();
-      $productLines = [];//ako ima error ke dojde do red 5 i natamu nema da se izvrse ke odi na catch i ke prodolzi nadolu
-      //da se dozvoli da se izvrsi html
+      $productLines = [];
     }
-//poinaku da se spravime kako ke se ispecati greskata
-
 ?>
 <html>
     <head>
@@ -29,11 +25,8 @@ try{
             <ul class="nav nav-tabs">
                  <?php
                     foreach ($productLines as $productLine){
-                        echo "<li><a href='product.php?id={$productLine['productLine']}'>{$productLine['productLine']}</a></li>";//{}da cita kako promenliva celoto
-                        //za sekoj element da cita na koj product e kliknato
+                        echo "<li><a href='product.php?id={$productLine['productLine']}'>{$productLine['productLine']}</a></li>";
                         }
                  ?>
             </ul>
-        </div>
-    </body>
-</html>
+        
