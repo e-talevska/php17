@@ -1,20 +1,6 @@
 <?php if(!isset($_GET['product'])){
 header("Location:index.php"); exit; } 
-
-include 'templates/header.php';?>
-<?php 
  require 'models/product.php';
-try{
-    $productModel = new Product();
-    $product = $productModel->fetchOne($_GET['product']);
-    
-} catch (Exception $exc) {
-    echo $exc->getMessage();
-}
-
-if(empty($product)){
-    header("Location: index.php");
-}
 
 $errors = [];
 if(isset($_POST['submit'])){
@@ -35,9 +21,26 @@ if(isset($_POST['submit'])){
     }
     //validation ok updating the product
     if(empty($errors)){
-        $result = $productModel->update($product['productCode'], $name, $desc, $price);
+        $productModel = new Product();
+        $result = $productModel->update($_GET['product'], $name, $desc, $price);
     }
 }
+
+include 'templates/header.php';?>
+<?php 
+
+try{
+    $productModel = new Product();
+    $product = $productModel->fetchOne($_GET['product']);
+    
+} catch (Exception $exc) {
+    echo $exc->getMessage();
+}
+
+if(empty($product)){
+    header("Location: index.php");
+}
+
 ?>
 <?php 
 if(isset($result) && $result){
