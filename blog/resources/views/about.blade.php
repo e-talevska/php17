@@ -15,4 +15,3 @@ About
         </ul>
         @endif
 @endsection
-
