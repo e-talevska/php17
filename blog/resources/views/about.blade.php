@@ -18,5 +18,5 @@ About
 @endsection
 
 @section('scripts')
-    omg this is wow
+    JS scripts
 @endsection
