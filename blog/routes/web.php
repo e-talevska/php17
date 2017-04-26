@@ -16,4 +16,6 @@ Route::get('/', function () {
 });
 
 Route::get('about', 'PublicController@about');
+
+Route::get('articles', 'ArticleController@index');
     
