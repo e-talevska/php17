@@ -7,9 +7,9 @@
  <article>
      <h2> <a href='#'> {{$article-> title}}
              
-         </a>
+         </a>  </h2>
          <div class='content'> {{ $article->body }} </div>
-     </h2>
+   
  </article>
  @endforeach
 @endsection
