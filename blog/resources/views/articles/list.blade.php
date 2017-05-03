@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 
 @section('content')
-    <h1 class="page-header">Article</h1>
+<h1 class="page-header">Article <a href="{{ url('articles/create') }}"><i class="fa fa-plus-square" aria-hidden="true"></i>
+</a></h1>
     @foreach($articles as $article)
     <article>
         <h2><a href='#'>{{ $article->title }}</a></h2>
