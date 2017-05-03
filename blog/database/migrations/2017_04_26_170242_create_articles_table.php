@@ -23,6 +23,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
+            $table->engine = "InnoDB";
         });
     }
 
