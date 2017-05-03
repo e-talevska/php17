@@ -19,3 +19,9 @@ Route::get('/', function () {
 Route::get('about', "PublicController@about");
 
 Route::get('articles','ArticleController@index');
+
+Route::get('articles/create','ArticleController@create');
+Route::post('articles','ArticleController@store');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

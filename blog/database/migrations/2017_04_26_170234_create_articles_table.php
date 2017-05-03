@@ -22,8 +22,8 @@ class CreateArticlesTable extends Migration
             $table->dateTime('published_at');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
-
             $table->timestamps();
+            $table->engine = "INNODB";
         });
     }
 
