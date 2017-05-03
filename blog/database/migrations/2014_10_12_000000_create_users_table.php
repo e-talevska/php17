@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();//metodi
             $table->timestamps();
+            $table->engine = 'INNODB';
         });
     }
 

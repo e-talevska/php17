@@ -22,6 +22,7 @@ class CreateArticlesTable extends Migration
             $table->dateTime('published_at');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
+            $table->engine = 'InnoDB';
             $table->timestamps();//dve koloni avtomatski zemaat datumi od sql koga daden zapis ke bide kreiran ili promenet
         });//nema potreba od time stamps, ne menuvaat niso, created_at	updated_at
     }

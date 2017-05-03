@@ -28,5 +28,9 @@ Route::get('/', function () {
 //});
 
 Route::get('about', 'PublicController@about');
-
 Route::get('articles', 'ArticleController@index');
+Route::get('articles/create', 'ArticleController@create');
+Route::post('articles', 'ArticleController@store');//akcija vo form
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');//dodadena sama so registracijata koga se registrira odi na blog.dev/home
