@@ -12,4 +12,16 @@ class ArticleController extends Controller
         $articles = Article::all();
         return view('articles/list', ['articles' => $articles]);
     }
+    
+    public function create() {
+        $categories = \App\Category::pluck('title','id');
+        return view('articles.create', ['categories' => $categories]);
+    }
+    
+    public function store(\Request $request) {
+        $input = $request::all();
+        $input['user_id'] = \Auth::user()->id;
+        Article::create($input);
+    }
 }
+
