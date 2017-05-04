@@ -26,4 +26,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function isAuthor(){
+        return true;//od redirectIfNotAuthor // ako ne e avtor ke se prenasoci na home ke vleze vo if
+}
 }

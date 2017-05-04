@@ -30,7 +30,9 @@ Route::get('/', function () {
 Route::get('about', 'PublicController@about');
 Route::get('articles', 'ArticleController@index');
 Route::get('articles/create', 'ArticleController@create');
+Route::get('articles/edit/{id}', 'ArticleController@edit');//nes dinamicki vo rutata{}
+Route::get('articles/{slug}', 'ArticleController@view');//ako e pred create ke vleze vo slug
 Route::post('articles', 'ArticleController@store');//akcija vo form
+Route::patch('articles/{id}', 'ArticleController@update');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index');//dodadena sama so registracijata koga se registrira odi na blog.dev/home

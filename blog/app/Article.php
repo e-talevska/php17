@@ -12,7 +12,7 @@ class Article extends Model
      //   'slug'
    // ];
     
-    protected $quarded = [
+    protected $guarded = [
         'id'
     ];
 }
