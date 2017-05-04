@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    protected $fillable = [
-        'title',
-        'body',
-        'slug'
-    ];
-    
+//    protected $fillable = [
+//        'title',
+//        'body',
+//        'slug'
+//    ];
+//    
     protected $guarded = [
         'id'
     ];
