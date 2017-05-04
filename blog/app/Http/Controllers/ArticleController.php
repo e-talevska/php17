@@ -83,7 +83,7 @@ class ArticleController extends Controller
         
         
         $article->update($input);
-        return redirect('articles/'.$article->id);
+        return redirect('articles/'.$article->slug);
     }
         function view($slug){
             $article = Article::all()->where('slug', $slug)->first();
