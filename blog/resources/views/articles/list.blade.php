@@ -5,8 +5,8 @@
 </a></h1>
     @foreach($articles as $article)
     <article>
-        <h2><a href='#'>{{ $article->title }}</a></h2>
-        <div class='content'>{{ $article->body }}</div>
+        <h2><a href='#'>{{ $article->title }}</a> <a href="{{ url('articles/edit', ['id' => $article->id]) }}"><i class="fa fa-pencil" aria-hidden="true"></i></h2>
+        <div class='content'>{{ $article->excerpt }}</div>
     </article>
     @endforeach
 @endsection
