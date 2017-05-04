@@ -19,7 +19,10 @@ Route::get('about', 'PublicController@about');
     
 Route::get('articles','ArticleController@index');
 Route::get('articles/create','ArticleController@create');
-Route::get('articles','ArticleController@store');
+Route::get('articles/edit/{id}','ArticleController@edit');
+
+Route::post('articles','ArticleController@store');
+Route::patch('articles/{id}','ArticleController@update');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');

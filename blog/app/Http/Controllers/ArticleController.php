@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Article;
+use Illuminate\Support\Facades\Input;
 
 class ArticleController extends Controller
 {
+    function __construct() {
+        $this->middleware(['auth', 'checkIfAuthor']);
+    }
+
     public function index(){
         $articles = Article::all();
         
@@ -15,14 +20,69 @@ class ArticleController extends Controller
         
     }
     public function create(){
-         $categories = var_dump(\App\Category::pluck('title', 'id'));
+         $categories = \App\Category::pluck('title', 'id');
         return view('articles.create',['categories' => $categories]);
     }
-    public function store (\Request $request){
+    public function store (Request $request){
        // var_dump($request)
-        $input = $request::all();
-        $input['user_id']=  \Auth::user()->id;
-       Article::create($request::all());
+        // if(!\Auth::guest())
+        $this->validate($request, [
+            'title'=>'required|min:3',
+            'body'=>'required',
+            'excerpt'=>'required',
+            'slug'=>'required|unique:articles',
+          'feature_image'=>'image',
+            'category_id'=>'required|integer',
+            'published_at'=>'required|date'
+            
+            ]);
         
+        $image = Input::file('feature_image');
+        $imageName = time().$image->getClientOriginalName();
+        $image->move('uploads', $imageName);
+        $input = $request->all();
+        $input['feature_image']= $imageName;
+        $input['user_id']=  \Auth::user()->id;
+       Article::create($input);
+        return redirect('articles');
+    }
+    function edit($id){
+        $article = Article::findOrFail($id);
+        $categories = \App\Category::pluck('title', 'id');
+        return view('articles.edit',
+                [ 'article' => $article,
+                    'categories' => $categories
+            
+        ]);
+    }
+    function update($id, Request $request){
+         $this->validate($request, [
+            'title'=>'required|min:3',
+            'body'=>'required',
+            'excerpt'=>'required',
+            'slug'=>'required|unique:articles,slug,'.$id,
+          'feature_image'=>'image',
+            'category_id'=>'required|integer',
+            'published_at'=>'required|date'
+            
+            ]);
+         $article = Article::findOrFail($id);
+         $image = Input::file('feature_image');
+         $input = $request->all();
+         //new image chosen
+         if(isset($image)){
+             $imageName = time().$image->getClientOriginalName();
+             $input['feature_image'] = $imageName;
+             $image->move('uploads', $imageName);
+             
+             //delete the old image
+             if(file_exists('uploads/'.$article->feature_image)){
+                 unlink('uploads/'.$article->feature_image);
+             }
+         }
+        
+        
+        $article->update($input);
+        return redirect('article/'.$article->id);
     }
 }
