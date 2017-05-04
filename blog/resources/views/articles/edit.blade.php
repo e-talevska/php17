@@ -1,9 +1,10 @@
 @extends('layouts.layout')
 
 @section('content')
-<h1>Create Article</h1>
+<h1>Edit Article</h1>
 <hr>
-{!! Form::open(['url' => 'articles', 'method' => 'POST', 'files' => true]) !!}
+{!! Form::model($article, ['url' => 'articles/'.$article->id, 'method' => 'PATCH', 'files' => true]) !!}
+<img src="/uploads/{{$article->feature_image}}" alt='{{$article->feature_image}}'>
     <div class="form-group">
         {{ Form::label('title', 'Title') }}
         {{ Form::text('title', null, ['class' => 'form-control']) }}
@@ -33,7 +34,7 @@
         {{ Form::text('published_at', null, ['class' => 'form-control']) }}
     </div>
 
-    <button type="submit" class="btn btn-default">Create Article</button>
+    <button type="submit" class="btn btn-default">Edit Article</button>
     
 {!! Form::close() !!}
 @if($errors->any())
