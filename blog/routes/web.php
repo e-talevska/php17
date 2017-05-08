@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','ArticleController@index'); //{
+  //  return view('welcome');
+//});
 
 
 //Route::get('about', function () {
@@ -36,3 +36,4 @@ Route::post('articles', 'ArticleController@store');//akcija vo form
 Route::patch('articles/{id}', 'ArticleController@update');
 Auth::routes();
 Route::get('/home', 'HomeController@index');//dodadena sama so registracijata koga se registrira odi na blog.dev/home
+Route::resource('tags', 'TagController');//kontroler kako resource//route:list

@@ -29,5 +29,9 @@ class User extends Authenticatable
     
     public function isAuthor(){
         return true;//od redirectIfNotAuthor // ako ne e avtor ke se prenasoci na home ke vleze vo if
-}
+    }
+    
+    public function articles(){
+        return $this->hasMany('\App\Article', 'user_id');
+    }
 }

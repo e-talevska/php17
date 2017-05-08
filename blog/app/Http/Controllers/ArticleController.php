@@ -9,18 +9,32 @@ class ArticleController extends Controller
 {
     
     function __construct(){
-        $this->middleware(['auth', 'checkIfAuthor']); //['except' => '']);//se dava imeto na middleware auth //  moze da bide niza ako ima poveke middlewares
+        $this->middleware(['auth', 'checkIfAuthor'], ['except' => 'index']); //['except' => '']);//se dava imeto na middleware auth //  moze da bide niza ako ima poveke middlewares
     }//ako odime na articles redirektira na login //moze da se izlistat rutite za koi ne sakame da vazi except/only
     //od kernel
     public function index(){
+        $segment = \Request::segments(1);//1 e posle base url, odnosno home
         $articles = Article::all();//class article staticki metod all, ne e povrzano samo so edna instanca
+        if(!isset($segment)){
+            //for base url only
+            $articles = Article::where('published_at','<=', date('Y-m-d H:i:s'))->get();
+            return view('public.listFrontEnd', ['articles' => $articles]);//se praka niza
+        } else if(isset($segment) && \Auth::guest()){
+            //if the user is not loged in but still tries to access /article
+            return redirect('login');
+        } else {
        // var_dump(compact("articles"));
-        return view('articles.list', ['articles' => $articles]);//se praka niza
+            $articles = Article::all();
+            return view('articles.list', ['articles' => $articles]);//se praka niza
+        }
     }
     
     public function create(){
         $categories = \App\Category::pluck('title', 'id');//metod dozvoluva da procita title i id, rezultat lista prvo se vrednostite, vtoro se klucevite
-        return view ('articles.create', ['categories' => $categories]);
+        $tags = \App\Tag::pluck('name', 'id');
+        return view ('articles.create', [
+            'categories' => $categories, 
+            'tags' => $tags]);
     }
     
     public function store(Request $request){//gi predava kako argument od akcijata vo form preku class Request
@@ -48,19 +62,25 @@ class ArticleController extends Controller
         $image->move('uploads', $imageName);//da se premesti vo folder uploads
         
         $input = $request->all();
+        $tags = $input['tag'];
+        unset($input['tag']);//bidejki ja nema kolonata tags vo articles
         $input['featured_image'] = $imageName;
         $input['user_id'] = \Auth::user()->id;//\Auth::user() vraka null(nema najaveno korisnik) dali ima najaven korisnik
         //od userot da go zememe id-to 
-        Article::create($input);
+        $article = Article::create($input);
+        $article->tags()->attach($tags);//funkcijata od article.php tags//se isprakaat id-njata na tagovite $input[tags]
+        \Session::flash('flash_message', 'Article successfully created');//dostapni fasadi komuniciraat so objekti vo pozadina \pred session vo globalen namespace
         return redirect('articles');
     }
     
     public function edit($id){//dinamickoto id od route
         $article = Article::findOrFail($id);//find
+        $tags = \App\Tag::pluck('name', 'id');
         $categories = \App\Category::pluck('title', 'id');
         return view('articles.edit', [
             'article' => $article,
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags,
         ]);
         
     }
@@ -84,7 +104,8 @@ class ArticleController extends Controller
         //new image chosen
         
         $input = $request->all();
-        
+        $tags = $input['tag'];
+        unset($input['tag']);//da se otsetira ne ni treba nema takva kolona
         if(isset($image)){
             $imageName = time().$image->getClientOriginalName();
             $input['featured_image'] = $imageName;
@@ -97,6 +118,7 @@ class ArticleController extends Controller
         }
         
         $article->update($input);
+        $article->tags()->sync($tags);//da se sinhroniziraat so tie sto postojat vo baza i novo dodadeni
         return redirect('articles/'.$article->slug);
     }
     
