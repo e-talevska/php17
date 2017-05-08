@@ -25,7 +25,7 @@
         {{ Form::label('category_id','Category') }}
         {{ Form::select('category_id',$categories,null,['class' => 'form-control']) }}
     </div>
-    <image width='50%' src='/uploads/{{ $article->feature_image }}' alt='{{$article->feature_image }}'>
+    <image width='50%' src="{{ asset('/uploads/'.$article->feature_image) }}" alt='{{$article->feature_image }}'>
     <div class="form-group">
         {{ Form::label('feature_image','Feature Image') }}
         {{ Form::file('feature_image',['class' => 'form-control']) }}
