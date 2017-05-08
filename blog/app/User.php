@@ -29,4 +29,8 @@ class User extends Authenticatable
     public function isAuthor(){
         return true;
     }
+    public function articles(){
+        return $this->hasMany('\App\Article', 'user_id');
+        
+    }
 }

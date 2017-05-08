@@ -5,51 +5,7 @@
 <h1></h1>
 {!! Form::model($article, ['url' => 'articles/'.$article->id, 'method' => "PATCH", 'files'=> true]) !!}
 <img src="uploads/{{$article->feature_image}}" alt='{{$article->feature_image}}'>
-    <div class="form-group">
-            {{Form::label('title', 'Title')}}
-            {{Form::text('title', null, ['class'=>'form-control'])}}
-                
-  </div>
-            <div class="form-group">
-                        {{Form::label('slug', 'Slug')}}
-                        {{Form::text('slug', null, ['class'=>'form-control'])}}
-
-              </div>
-                <div class="form-group">
-                                        {{Form::label('excerpt', 'Excerpt')}}
-                                        {{Form::textarea('excerpt', null, ['class'=>'form-control', 'rows'=>3])}}
-
-                              </div>
-
-            <div class="form-group">
-                        {{Form::label('body', 'content')}}
-                        {{Form::text('body', null, ['class'=>'form-control'])}}
-
-              </div>
-            <div class="form-group">
-                        {{Form::label('published_at', 'Published_at')}}
-                        {{Form::text('published_at', null, ['class'=>'form-control'])}}
-
-              </div>
-                <div class="form-group">
-                                        {{Form::label('category_id', 'Category')}}
-                                        {{Form::select('category_id', $categories, null, ['class'=>'form-control'])}}
-
-                              </div>
-              <div class="form-group">
-                {{Form::label('feature_image', 'Feature_image')}}
-                {{Form::file('feature_image', ['class'=>'form-control'])}}
-                
-  </div>
-            <button type="submit" class="btn btn-primary">Edit Article</button>
+    @include('articles._form',['buttonText'=>'Edit Article'])
 {!! Form::close() !!}
-@if($errors->any())
-        <ul class="alert alert-danger">
-            @foreach($errors->all() as $error)
-            <li> {{$error}} </li>
-
-            @endforeach
-        </ul>
-@endif
-
+@include('parts._errors')
 @endsection
