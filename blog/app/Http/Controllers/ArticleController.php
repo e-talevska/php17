@@ -19,7 +19,11 @@ class ArticleController extends Controller
     }
     public function create(){
         $categories = \App\Category::pluck('title','id');
-        return view('articles\create',['categories' => $categories]);
+        $tags = \App\Tag::pluck('name','id');
+        return view('articles\create',[
+            'categories' => $categories,
+            'tags' => $tags            
+                ]);
     }
     public function store(Request $request){
         //var_dump($request::all());
@@ -39,18 +43,29 @@ class ArticleController extends Controller
         $image->move('uploads',$imageName);
            
         $input = $request->all();  
+        $tags = $input['tag'];
+        unset($input['tag']);
         $input['feature_image'] = $imageName;
         $input['user_id'] = \Auth::user()->id;
-        Article::create($input);
+        $article = Article::create($input);
+        $article->tags()->attach($tags);
+        
+        \Session::flash('flash_message','Article successfully created');
         return redirect('articles');
         
     }      
     public function edit($id){
         $article = Article::findOrFail($id);
         $categories = \App\Category::pluck('title','id');
-        return view('articles.edit',['article' => $article, 'categories' => $categories]);
+        $tags = \App\Tag::pluck('name','id');
         
-        var_dump($article);
+        return view('articles.edit',[
+            'article' => $article, 
+            'categories' => $categories, 
+            'tags' => $tags
+        ]);
+        
+        //var_dump($article);
     }
     public function update($id, Request $request) {
         $this->validate($request, [
@@ -66,6 +81,9 @@ class ArticleController extends Controller
         $image = Input::file('feature_image');
                 
         $input = $request->all();
+        $tags = $input['tag'];
+        unset($input['tag']);
+        
         // new image chosen
         if(isset($image)){
             $imageName = time().$image->getClientOriginalName();
@@ -78,6 +96,8 @@ class ArticleController extends Controller
         }
         
         $article->update($input);
+        $article->tags()->sync($tags);
+        
         return redirect('articles/'.$article->slug);
     }
     public function view($slug) {
