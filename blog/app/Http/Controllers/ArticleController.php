@@ -20,7 +20,11 @@ class ArticleController extends Controller
     
     public function create() {
         $categories = \App\Category::pluck('title', 'id');
-        return view('articles.create', ['categories' => $categories]);
+        $tags= \App\Tag::pluck('name', 'id');
+        return view('articles.create', [
+            'categories' => $categories,
+            'tags' => $tags
+                ]);
     }
     
     public function store(Request $request) {
@@ -41,19 +45,25 @@ class ArticleController extends Controller
         $image->move('uploads', $imageName);
         
         $input = $request->all();
+        $tags = $input['tag'];
+        unset($input['tag']);
         $input['feature_image'] = $imageName;
         $input['user_id'] = \Auth::user()->id;
-        Article::create($input);
+        $article = Article::create($input);
+        $article->tags()->attach($tags);
+        \Session::flash('flash_message', 'Article successfully created');
         return redirect('articles');
     }
     
     function edit($id) {
         $article = Article::findOrFail($id);
         $categories = \App\Category::pluck('title', 'id');
+        $tags = \App\Tag::pluck('name', 'id');
         
         return view('articles.edit', [
             'article' => $article,
             'categories' => $categories,
+            'tags' => $tags
         ]);
         
     }
@@ -71,10 +81,12 @@ class ArticleController extends Controller
          
          $article = Article::findOrFail($id);
          $image = Input::file('feature_image');
-       // new image chosen
-                 
+                        
          $input = $request->all();
-         
+         $tags = $input['tag'];
+         unset($input['tag']);
+        
+         // new image chosen
          if(isset($image)) {
            $imageName = time().$image->getClientOriginalName();
            $input['feature_image'] = $imageName;
@@ -88,6 +100,7 @@ class ArticleController extends Controller
       }
          
          $article->update($input);
+         $article->tags()->sync($tags);
          return redirect('articles/'.$article->slug);
          
         }
