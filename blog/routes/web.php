@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ArticleController@index');
 
 Route::get('about', 'PublicController@about');
 
@@ -23,6 +21,8 @@ Route::get('articles/edit/{id}', 'ArticleController@edit');
 Route::get('articles/{slug}', 'ArticleController@view');
 Route::post('articles', 'ArticleController@store');
 Route::patch('articles/{id}', 'ArticleController@update');
+Route::resource('tags', 'TagController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('{slug}', 'ArticleController@viewSingle');

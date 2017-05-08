@@ -4,51 +4,13 @@
 <h1>Create Article</h1>
 <hr>
 {!! Form::open(['url' => 'articles', 'method' => 'POST', 'files' => true]) !!}
-<div class="form-group">
-    {{ Form::label('title', 'Title') }}
-    {{ Form::text('title', null, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('slug', 'Slug') }}
-    {{ Form::text('slug', null, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('body', 'Description') }}
-    {{ Form::textarea('body', null, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('excerpt', 'Excerpt') }}
-    {{ Form::textarea('excerpt', null, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('feature_image', 'Image') }}
-    {{ Form::file('feature_image', ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('category_id', 'Category') }}
-    {{ Form::select('category_id', $categories, null, ['class' => 'form-control']) }}
-</div>
-
-<div class="form-group">
-    {{ Form::label('published_at', 'Published At') }}
-    {{ Form::text('published_at', null, ['class' => 'form-control']) }}
-</div>
-
-<button type="submit" class="btn btn-primary">Create Article</button>
-
+@include('articles/_form', ['buttonText' => 'Create Article'])
 {!! Form::close() !!}
+@include('parts/_errors')
+@endsection
 
-@if($errors->any()) 
-<ul class="alert alert-danger">
-    @foreach($errors->all() as $error)
-    <li>{{ $error }}</li>
-    @endforeach
-</ul>
-@endif
-
+@section('scripts')
+<script>
+$("#tags").select2();
+</script>
 @endsection
