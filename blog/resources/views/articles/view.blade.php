@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-{{var_dump($article)}}
+
 <h1>Article: {{$article->title}}</h1>
 <div class="row">
     <image class="col-sm-12" width='50%' src="{{ asset('/uploads/'.$article->feature_image) }}" alt='{{$article->feature_image }}'>
